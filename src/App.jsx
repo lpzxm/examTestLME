@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import logito from './assets/logo.png'
 
 export const App = () => {
 
@@ -30,45 +31,53 @@ export const App = () => {
 
   return (
     <>
-      <div className='mt-32'>
-        <h2>Venta de Tacos</h2>
-        <div>
-          <label>
-            Tacos al Pastor ($2.50 cada uno):
-            <input
-              type="number"
-              value={productos.tacoAlPastor}
-              onChange={(e) => handleCantidadChange('tacoAlPastor', parseInt(e.target.value))}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Tacos de Asada ($3.00 cada uno):
-            <input
-              type="number"
-              value={productos.tacoDeAsada}
-              onChange={(e) => handleCantidadChange('tacoDeAsada', parseInt(e.target.value))}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Tacos de Carnitas ($3.50 cada uno):
-            <input
-              type="number"
-              value={productos.tacoDeCarnitas}
-              onChange={(e) => handleCantidadChange('tacoDeCarnitas', parseInt(e.target.value))}
-            />
-          </label>
-        </div>
-        <div>
-          <button onClick={imprimirFactura}>Imprimir Factura</button>
-        </div>
-        <div>
-          <h3>Total: ${calcularTotal()}</h3>
+      <div className='mt-32 w-full flex justify-center items-center'>
+        <div className='flex flex-col justify-center items-center bg-orange-200 space-y-9'>
+          <div className=''>
+            <div className='w-32 rounded-full'>
+              <img src={logito} className='' alt="" />
+            </div>
+          </div>
+          <h2 className='text-2xl font-serif'>Venta de Tacos</h2>
+          <div>
+            <label className=''>
+              Tacos al Pastor ($2.50 cada uno):
+              <input
+                type="number"
+                value={productos.tacoAlPastor}
+                onChange={(e) => handleCantidadChange('tacoAlPastor', parseInt(e.target.value))}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Tacos de Asada ($3.00 cada uno):
+              <input
+                type="number"
+                value={productos.tacoDeAsada}
+                onChange={(e) => handleCantidadChange('tacoDeAsada', parseInt(e.target.value))}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Tacos de Carnitas ($3.50 cada uno):
+              <input
+                type="number"
+                value={productos.tacoDeCarnitas}
+                onChange={(e) => handleCantidadChange('tacoDeCarnitas', parseInt(e.target.value))}
+              />
+            </label>
+          </div>
+          <div>
+            <button onClick={imprimirFactura}>Imprimir Factura</button>
+          </div>
+          <div>
+            <h3>Total: ${calcularTotal()}</h3>
+          </div>
         </div>
       </div>
+
     </>
   )
 }
