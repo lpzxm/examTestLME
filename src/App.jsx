@@ -53,21 +53,57 @@ export const App = () => {
     })
   }
 
-  // Función para imprimir la factura
   const imprimirFactura = () => {
     if (calcularTotal() !== "0.00") {
+      const lineHeight = 10;
+      const startX = 10;
+      const startY = 30;
+      const columnWidth = 60;
+      const rowHeight = 10;
+      const totalWidth = 180;
+
       const doc = new jsPDF();
-      doc.text(`Factura. Cliente: ${nombre} ${apellido}.`, 10, 10);
-      doc.text('Productos:', 10, 20);
-      doc.text(`- Tacos al Pastor: ${productos.tacoAlPastor}`, 10, 30);
-      doc.text(`- Tacos de Asada: ${productos.tacoDeAsada}`, 10, 40);
-      doc.text(`- Tacos de Carnitas: ${productos.tacoDeCarnitas}`, 10, 50);
-      doc.text(`Total: $${calcularTotal()}`, 10, 60);
+
+      doc.text(`Factura. Cliente: ${nombre} ${apellido}.`, startX, startY);
+
+      // Draw table headers
+      doc.rect(startX, startY + lineHeight, totalWidth, rowHeight, 'S');
+      doc.text('Producto', startX + 5, startY + lineHeight + 7);
+      doc.text('Cantidad', startX + columnWidth, startY + lineHeight + 7);
+      doc.text('Subtotal', startX + 2 * columnWidth, startY + lineHeight + 7);
+
+      // Draw table rows
+      let currentY = startY + 2 * lineHeight;
+      doc.rect(startX, currentY, totalWidth, rowHeight, 'S');
+      doc.text('Tacos al Pastor', startX + 5, currentY + 7);
+      doc.text(productos.tacoAlPastor.toString(), startX + columnWidth, currentY + 7);
+      doc.text(`$${(productos.tacoAlPastor * 2.5).toFixed(2)}`, startX + 2 * columnWidth, currentY + 7);
+
+      currentY += lineHeight;
+      doc.rect(startX, currentY, totalWidth, rowHeight, 'S');
+      doc.text('Tacos de Asada', startX + 5, currentY + 7);
+      doc.text(productos.tacoDeAsada.toString(), startX + columnWidth, currentY + 7);
+      doc.text(`$${(productos.tacoDeAsada * 3.0).toFixed(2)}`, startX + 2 * columnWidth, currentY + 7);
+
+      currentY += lineHeight;
+      doc.rect(startX, currentY, totalWidth, rowHeight, 'S');
+      doc.text('Tacos de Carnitas', startX + 5, currentY + 7);
+      doc.text(productos.tacoDeCarnitas.toString(), startX + columnWidth, currentY + 7);
+      doc.text(`$${(productos.tacoDeCarnitas * 3.5).toFixed(2)}`, startX + 2 * columnWidth, currentY + 7);
+
+      // Draw total
+      currentY += lineHeight;
+      doc.rect(startX, currentY, totalWidth, rowHeight, 'S');
+      doc.text('Total', startX + columnWidth, currentY + 7);
+      doc.text(`$${calcularTotal()}`, startX + 2 * columnWidth, currentY + 7);
+
       doc.save('factura.pdf');
     } else {
       alert("Compra al menos un producto");
     }
   };
+
+
 
 
   return (
@@ -83,12 +119,12 @@ export const App = () => {
           <div className='w-full flex flex-row justify-between'>
             <div className='relative'>
               <input type="text" className='p-2 rounded-md required:border-red-500' name={nombre}
-                onChange={handleNombreChange} id="" pattern="[A-Za-z]" placeholder='Ingresa tu primer nombre' required />
+                onChange={handleNombreChange} id="" pattern="[A-Za-z]" placeholder='Primer nombre' required />
               <FaUser className='absolute top-3 right-5' />
             </div>
             <div className='relative'>
               <input type="text" className='p-2 rounded-md required:border-red-500' name={apellido} onChange={handleApellidoChange}
-                id="" pattern="[A-Za-z]" placeholder='Ingresa tu primer apellido' required />
+                id="" pattern="[A-Za-z]" placeholder='Primer apellido' required />
               <FaUser className='absolute top-3 right-5' />
             </div>
           </div>
