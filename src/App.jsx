@@ -30,7 +30,6 @@ export const App = () => {
     setProductos({ ...productos, [producto]: roundedValor });
   };
 
-  // Función para calcular el total de la venta
   const calcularTotal = () => {
     let total = 0;
     total += productos.tacoAlPastor * 2.5; // Precio del taco al pastor
@@ -62,13 +61,11 @@ export const App = () => {
 
       doc.text(`Factura. Cliente: ${nombre} ${apellido}.`, startX, startY);
 
-      // Draw table headers
       doc.rect(startX, startY + lineHeight, totalWidth, rowHeight, 'S');
       doc.text('Producto', startX + 5, startY + lineHeight + 7);
       doc.text('Cantidad', startX + columnWidth, startY + lineHeight + 7);
       doc.text('Subtotal', startX + 2 * columnWidth, startY + lineHeight + 7);
 
-      // Draw table rows
       let currentY = startY + 2 * lineHeight;
       doc.rect(startX, currentY, totalWidth, rowHeight, 'S');
       doc.text('Tacos al Pastor', startX + 5, currentY + 7);
@@ -87,7 +84,6 @@ export const App = () => {
       doc.text(productos.tacoDeCarnitas.toString(), startX + columnWidth, currentY + 7);
       doc.text(`$${(productos.tacoDeCarnitas * 3.5).toFixed(2)}`, startX + 2 * columnWidth, currentY + 7);
 
-      // Draw total
       currentY += lineHeight;
       doc.rect(startX, currentY, totalWidth, rowHeight, 'S');
       doc.text('Total', startX + columnWidth, currentY + 7);
