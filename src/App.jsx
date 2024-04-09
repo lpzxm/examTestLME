@@ -32,42 +32,47 @@ export const App = () => {
   return (
     <>
       <div className='mt-32 w-full flex justify-center items-center'>
-        <div className='flex flex-col justify-center items-center bg-orange-200 space-y-9'>
+        <div className='py-5 px-4 flex flex-col justify-center items-center border-4 shadow-lg border-lime-700 bg-orange-200 space-y-9 rounded-xl'>
           <div className=''>
-            <div className='w-32 rounded-full'>
+            <div className='w-40 rounded-full'>
               <img src={logito} className='' alt="" />
             </div>
+
           </div>
           <h2 className='text-2xl font-serif'>Venta de Tacos</h2>
-          <div>
+          <div className='space-x-4'>
             <label className=''>
-              Tacos al Pastor ($2.50 cada uno):
-              <input
-                type="number"
-                value={productos.tacoAlPastor}
-                onChange={(e) => handleCantidadChange('tacoAlPastor', parseInt(e.target.value))}
-              />
-            </label>
+            </label>Tacos al Pastor ($2.50 cada uno):
+            <input
+              type="number"
+              className='rounded-md'
+              value={productos.tacoAlPastor}
+              onChange={(e) => handleCantidadChange('tacoAlPastor', parseInt(e.target.value))}
+            />
           </div>
-          <div>
+          <div className='space-x-4'>
             <label>
               Tacos de Asada ($3.00 cada uno):
-              <input
-                type="number"
-                value={productos.tacoDeAsada}
-                onChange={(e) => handleCantidadChange('tacoDeAsada', parseInt(e.target.value))}
-              />
+
             </label>
+            <input
+              type="number"
+              className='rounded-md'
+              value={productos.tacoDeAsada}
+              onChange={(e) => handleCantidadChange('tacoDeAsada', parseInt(e.target.value))}
+            />
           </div>
-          <div>
+          <div className='space-x-4'>
             <label>
               Tacos de Carnitas ($3.50 cada uno):
-              <input
-                type="number"
-                value={productos.tacoDeCarnitas}
-                onChange={(e) => handleCantidadChange('tacoDeCarnitas', parseInt(e.target.value))}
-              />
+
             </label>
+            <input
+              type="number"
+              value={productos.tacoDeCarnitas}
+              className='rounded-md'
+              onChange={(e) => handleCantidadChange('tacoDeCarnitas', parseInt(e.target.value))}
+            />
           </div>
           <div>
             <button onClick={imprimirFactura}>Imprimir Factura</button>
@@ -81,5 +86,3 @@ export const App = () => {
     </>
   )
 }
-
-export default App
