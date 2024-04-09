@@ -24,10 +24,6 @@ export const App = () => {
     setApellido(value);
   };
 
-  // Función para manejar cambios en la cantidad de productos
-  // const handleCantidadChange = (producto, cantidad) => {
-  //  setProductos({ ...productos, [producto]: cantidad });
-  // };
 
   const handleDecimalChange = (producto, valor) => {
     const roundedValor = parseFloat(valor).toFixed(0);
