@@ -72,14 +72,14 @@ export const App = () => {
 
   return (
     <>
-      <div className='mt-32 w-full flex justify-center items-center'>
+      <div className='mt-28 w-full flex justify-center items-center'>
         <div className='py-5 px-4 flex flex-col justify-center items-center border-4 shadow-lg border-lime-700 bg-orange-200 space-y-9 rounded-xl'>
           <div className=''>
             <div className='w-40 rounded-full'>
               <img src={logito} className='' alt="" />
             </div>
           </div>
-          <h2 className='text-2xl font-serif'>Venta de Tacos</h2>
+          <h2 className='text-2xl font-bold'>Venta de Tacos</h2>
           <div className='w-full flex flex-row justify-between'>
             <div className='relative'>
               <input type="text" className='p-2 rounded-md required:border-red-500' name={nombre}
