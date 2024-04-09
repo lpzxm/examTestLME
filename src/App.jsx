@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import logito from './assets/logo.png'
 import jsPDF from 'jspdf'
+import { FaUser } from "react-icons/fa";
+
 export const App = () => {
 
   const [productos, setProductos] = useState({
@@ -12,7 +14,15 @@ export const App = () => {
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
 
-  const nombreRegex = /^[a-zA-Z\s]*$/;
+  const handleNombreChange = (e) => {
+    const value = e.target.value.replace(/[0-9\s]/g, ''); // Remover números y espacios en blanco
+    setNombre(value);
+  };
+
+  const handleApellidoChange = (e) => {
+    const value = e.target.value.replace(/[0-9\s]/g, ''); // Remover números y espacios en blanco
+    setApellido(value);
+  };
 
   // Función para manejar cambios en la cantidad de productos
   // const handleCantidadChange = (producto, cantidad) => {
@@ -71,19 +81,16 @@ export const App = () => {
           </div>
           <h2 className='text-2xl font-serif'>Venta de Tacos</h2>
           <div className='w-full flex flex-row justify-between'>
-            <input type="text" className='p-2 rounded-md' name={nombre}
-              onChange={(e) => {
-                if (nombreRegex.test(e.target.value)) {
-                  setNombre(e.target.value)
-                }
-              }} id="" placeholder='Ingresa tu primer nombre' />
-            <input type="text" className='p-2 rounded-md' name={apellido}
-              onChange={(e) => {
-                if (nombreRegex.test(e.target.value)) {
-                  setApellido(e.target.value);
-                }
-              }
-              } id="" placeholder='Ingresa tu primer apellido' />
+            <div className='relative'>
+              <input type="text" className='p-2 rounded-md required:border-red-500' name={nombre}
+                onChange={handleNombreChange} id="" pattern="[A-Za-z]" placeholder='Ingresa tu primer nombre' required />
+              <FaUser className='absolute top-3 right-5' />
+            </div>
+            <div className='relative'>
+              <input type="text" className='p-2 rounded-md required:border-red-500' name={apellido} onChange={handleApellidoChange}
+                id="" pattern="[A-Za-z]" placeholder='Ingresa tu primer apellido' required />
+              <FaUser className='absolute top-3 right-5' />
+            </div>
           </div>
           <div className='space-x-4'>
             <label className=''>
@@ -120,7 +127,7 @@ export const App = () => {
             />
           </div>
           <div className='w-full flex flex-row justify-around'>
-            <button onClick={imprimirFactura} className='p-3 bg-green-400 rounded-xl'>Imprimir Factura</button>
+            <button type='submit' onClick={imprimirFactura} className='p-3 bg-green-400 rounded-xl'>Imprimir Factura</button>
             <button type="reset" onClick={cleanForm} className='p-3 bg-red-400 rounded-xl'>Limpiar formulario</button>
           </div>
           <div>
