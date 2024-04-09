@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import logito from './assets/logo.png'
-
+import jsPDF from 'jspdf'
 export const App = () => {
 
   const [productos, setProductos] = useState({
@@ -9,9 +9,19 @@ export const App = () => {
     tacoDeCarnitas: 0,
   });
 
+  const [nombre, setNombre] = useState('');
+  const [apellido, setApellido] = useState('');
+
+  const nombreRegex = /^[a-zA-Z\s]*$/;
+
   // Función para manejar cambios en la cantidad de productos
-  const handleCantidadChange = (producto, cantidad) => {
-    setProductos({ ...productos, [producto]: cantidad });
+  // const handleCantidadChange = (producto, cantidad) => {
+  //  setProductos({ ...productos, [producto]: cantidad });
+  // };
+
+  const handleDecimalChange = (producto, valor) => {
+    const roundedValor = parseFloat(valor).toFixed(0);
+    setProductos({ ...productos, [producto]: roundedValor });
   };
 
   // Función para calcular el total de la venta
@@ -23,11 +33,32 @@ export const App = () => {
     return total.toFixed(2);
   };
 
+  const cleanForm = () => {
+    setNombre('');
+    setApellido('');
+    setProductos({
+      tacoAlPastor: 0,
+      tacoDeAsada: 0,
+      tacoDeCarnitas: 0,
+    })
+  }
+
   // Función para imprimir la factura
   const imprimirFactura = () => {
-    // Aquí podrías implementar la lógica para imprimir la factura
-    alert('Factura impresa. Total: $' + calcularTotal());
+    if (calcularTotal() !== "0.00") {
+      const doc = new jsPDF();
+      doc.text(`Factura. Cliente: ${nombre} ${apellido}.`, 10, 10);
+      doc.text('Productos:', 10, 20);
+      doc.text(`- Tacos al Pastor: ${productos.tacoAlPastor}`, 10, 30);
+      doc.text(`- Tacos de Asada: ${productos.tacoDeAsada}`, 10, 40);
+      doc.text(`- Tacos de Carnitas: ${productos.tacoDeCarnitas}`, 10, 50);
+      doc.text(`Total: $${calcularTotal()}`, 10, 60);
+      doc.save('factura.pdf');
+    } else {
+      alert("Compra al menos un producto");
+    }
   };
+
 
   return (
     <>
@@ -37,9 +68,23 @@ export const App = () => {
             <div className='w-40 rounded-full'>
               <img src={logito} className='' alt="" />
             </div>
-
           </div>
           <h2 className='text-2xl font-serif'>Venta de Tacos</h2>
+          <div className='w-full flex flex-row justify-between'>
+            <input type="text" className='p-2 rounded-md' name={nombre}
+              onChange={(e) => {
+                if (nombreRegex.test(e.target.value)) {
+                  setNombre(e.target.value)
+                }
+              }} id="" placeholder='Ingresa tu primer nombre' />
+            <input type="text" className='p-2 rounded-md' name={apellido}
+              onChange={(e) => {
+                if (nombreRegex.test(e.target.value)) {
+                  setApellido(e.target.value);
+                }
+              }
+              } id="" placeholder='Ingresa tu primer apellido' />
+          </div>
           <div className='space-x-4'>
             <label className=''>
             </label>Tacos al Pastor ($2.50 cada uno):
@@ -47,7 +92,7 @@ export const App = () => {
               type="number"
               className='rounded-md'
               value={productos.tacoAlPastor}
-              onChange={(e) => handleCantidadChange('tacoAlPastor', parseInt(e.target.value))}
+              onChange={(e) => handleDecimalChange('tacoAlPastor', e.target.value)}
             />
           </div>
           <div className='space-x-4'>
@@ -59,7 +104,7 @@ export const App = () => {
               type="number"
               className='rounded-md'
               value={productos.tacoDeAsada}
-              onChange={(e) => handleCantidadChange('tacoDeAsada', parseInt(e.target.value))}
+              onChange={(e) => handleDecimalChange('tacoDeAsada', e.target.value)}
             />
           </div>
           <div className='space-x-4'>
@@ -71,11 +116,12 @@ export const App = () => {
               type="number"
               value={productos.tacoDeCarnitas}
               className='rounded-md'
-              onChange={(e) => handleCantidadChange('tacoDeCarnitas', parseInt(e.target.value))}
+              onChange={(e) => handleDecimalChange('tacoDeCarnitas', e.target.value)}
             />
           </div>
-          <div>
-            <button onClick={imprimirFactura}>Imprimir Factura</button>
+          <div className='w-full flex flex-row justify-around'>
+            <button onClick={imprimirFactura} className='p-3 bg-green-400 rounded-xl'>Imprimir Factura</button>
+            <button type="reset" onClick={cleanForm} className='p-3 bg-red-400 rounded-xl'>Limpiar formulario</button>
           </div>
           <div>
             <h3>Total: ${calcularTotal()}</h3>

@@ -9,9 +9,6 @@ export const Header = () => {
                 <div>
                     <img src={foodLogo} className='w-24' alt="" />
                 </div>
-                <div>
-                    <button className='bg-green-600 rounded-lg p-3'>Imprimir factura</button>
-                </div>
             </header>
         </>
     )
