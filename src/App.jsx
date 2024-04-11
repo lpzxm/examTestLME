@@ -62,16 +62,17 @@ export const App = () => {
       const doc = new jsPDF();
       const fechaActual = new Date().toLocaleDateString();
 
-      doc.addImage(logito, 'PNG', 10, 10, 50, 50);
+      doc.setLineWidth(0.5);
+      doc.line(startX, startY + 100, startX + totalWidth, startY + 100); // Línea encabezado
+      doc.line(startX + columnWidth, startY + 100, startX + columnWidth, startY + 150); // Línea vertical
+      doc.line(startX + 2 * columnWidth, startY + 100, startX + 2 * columnWidth, startY + 150); // Línea vertical
+
+      doc.addImage(logito, 'PNG', 2, 2, 20, 20);
       doc.text(`Factura. Cliente: ${nombre} ${apellido}.`, startX, startY + 70);
       doc.text('SuperTacos, tu taquería al pastor de confianza', startX, startY + 80);
       doc.text(`Direccion: ${direccion}.`, startX, startY + 90);
       doc.text(`Fecha: ${fechaActual}.`, startX, startY + 100);
 
-      doc.setLineWidth(0.5);
-      doc.line(startX, startY + 100, startX + totalWidth, startY + 100); // Línea encabezado
-      doc.line(startX + columnWidth, startY + 100, startX + columnWidth, startY + 150); // Línea vertical
-      doc.line(startX + 2 * columnWidth, startY + 100, startX + 2 * columnWidth, startY + 150); // Línea vertical
 
       doc.rect(startX, startY + lineHeight, totalWidth, rowHeight, 'S');
       doc.text('Producto', startX + 5, startY + lineHeight + 7);
