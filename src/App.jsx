@@ -64,7 +64,7 @@ export const App = () => {
 
       doc.addImage(logito, 'PNG', 10, 10, 50, 50);
       doc.text(`Factura. Cliente: ${nombre} ${apellido}.`, startX, startY + 70);
-      doc.text('SuperTacos, tu taquería al pastor de confianza' startX, startY + 80);
+      doc.text('SuperTacos, tu taquería al pastor de confianza', startX, startY + 80);
       doc.text(`Direccion: ${direccion}.`, startX, startY + 90);
       doc.text(`Fecha: ${fechaActual}.`, startX, startY + 100);
 
