@@ -16,14 +16,29 @@ export const App = () => {
   const [direccion, setDireccion] = useState('');
 
   const handleNombreChange = (e) => {
-    const value = e.target.value.replace(/[0-9\s]/g, ''); // Remover números y espacios en blanco
-    setNombre(value);
+    if (!/^[A-Za-z\s]*$/.test(e.key)) {
+      e.preventDefault();
+    } else {
+      const value = e.target.value.replace(/[^A-Za-z\s]/g, ''); // Permitir solo letras y espacios en blanco
+      setNombre(value);
+    }
+
   };
 
   const handleApellidoChange = (e) => {
-    const value = e.target.value.replace(/[0-9\s]/g, ''); // Remover números y espacios en blanco
-    setApellido(value);
+    if (!/^[A-Za-z\s]*$/.test(e.key)) {
+      e.preventDefault();
+    } else {
+      const value = e.target.value.replace(/[^A-Za-z\s]/g, ''); // Permitir solo letras y espacios en blanco
+      setApellido(value);
+    }
+
   };
+
+  const handleDireccionChange = (e) => {
+
+    setDireccion(e.target.value);
+  }
 
 
   const handleDecimalChange = (producto, valor) => {
@@ -62,9 +77,8 @@ export const App = () => {
       const doc = new jsPDF();
       const fechaActual = new Date().toLocaleDateString();
 
-      doc.addImage(logito, 'PNG', 5, 5, 20, 20);
+      doc.addImage(logito, 'PNG', 5, 5, 30, 30);
       doc.text(`Factura. Cliente: ${nombre} ${apellido}.`, startX, startY + 70);
-      doc.text('SuperTacos, tu taquería al pastor de confianza', startX, startY + 80);
       doc.text('SuperTacos, tu taquería al pastor de confianza', startX, startY + 80);
       doc.text(`Direccion: ${direccion}.`, startX, startY + 90);
       doc.text(`Fecha: ${fechaActual}.`, startX, startY + 100);
@@ -118,12 +132,12 @@ export const App = () => {
           <h2 className='text-2xl font-bold'>Venta de Tacos</h2>
           <div className='w-full flex flex-row justify-between'>
             <div className='relative'>
-              <input type="text" className='p-2 rounded-md required:border-red-500' name={nombre} onChange={handleNombreChange}
+              <input type="text" className='p-2 rounded-md required:border-red-500' name={nombre} onKeyDown={handleNombreChange}
                 id="" pattern="[A-Za-z]+" placeholder='Primer nombre' required />
               <FaUser className='absolute top-3 right-5' />
             </div>
             <div className='relative'>
-              <input type="text" className='p-2 rounded-md required:border-red-500' name={apellido} onChange={handleApellidoChange}
+              <input type="text" className='p-2 rounded-md required:border-red-500' name={apellido} onKeyDown={handleApellidoChange}
                 id="" pattern="[A-Za-z]+" placeholder='Primer apellido' required />
               <FaUser className='absolute top-3 right-5' />
             </div>
@@ -132,7 +146,7 @@ export const App = () => {
             <label>
               Ingresa la dirección
             </label>
-            <input type="text" className='p-2 rounded-md required:border-red-500' name={direccion} />
+            <input type="text" className='p-2 rounded-md required:border-red-500' name={direccion} onChange={handleDireccionChange} />
           </div>
           <div className='space-x-4'>
             <label className=''>
@@ -169,7 +183,7 @@ export const App = () => {
             />
           </div>
           <div className='w-full flex flex-row justify-around'>
-            <button type='submit' onClick={imprimirFactura} className='p-3 bg-green-400 rounded-xl'>Imprimir Factura</button>
+            <button type='submit' onClick={() => imprimirFactura(direccion)} className='p-3 bg-green-400 rounded-xl'>Imprimir Factura</button>
             <button type="reset" onClick={cleanForm} className='p-3 bg-red-400 rounded-xl'>Limpiar formulario</button>
           </div>
           <div>
