@@ -12,7 +12,7 @@ export const Footer = () => {
                     <div className='flex justify-center items-center'>
                         <ul className='space-y-2 text-lg'>
                             <li>José Adrian López Medina - LM242664</li>
-                            <li>Christopher Tommy Núñez Pineda - NP</li>
+                            <li>Christopher Tommy Núñez Pineda - NP242671</li>
                             <li>Sara Yamileth Torres Henríquez - TH242684</li>
                         </ul>
                     </div>
