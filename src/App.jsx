@@ -125,7 +125,7 @@ export const App = () => {
             </label>Tacos al Pastor ($2.50 cada uno):
             <input
               type="number"
-              className='rounded-md'
+              className='rounded-md w-32'
               value={productos.tacoAlPastor}
               onChange={(e) => handleDecimalChange('tacoAlPastor', e.target.value)}
             />
@@ -137,7 +137,7 @@ export const App = () => {
             </label>
             <input
               type="number"
-              className='rounded-md'
+              className='rounded-md w-32'
               value={productos.tacoDeAsada}
               onChange={(e) => handleDecimalChange('tacoDeAsada', e.target.value)}
             />
@@ -150,7 +150,7 @@ export const App = () => {
             <input
               type="number"
               value={productos.tacoDeCarnitas}
-              className='rounded-md'
+              className='rounded-md w-32'
               onChange={(e) => handleDecimalChange('tacoDeCarnitas', e.target.value)}
             />
           </div>
