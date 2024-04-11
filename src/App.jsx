@@ -15,15 +15,15 @@ export const App = () => {
   const [apellido, setApellido] = useState('');
   const [direccion, setDireccion] = useState('');
 
- // const handleNombreChange = (e) => {
-   // const value = e.target.value.replace(/[0-9\s]/g, ''); // Remover números y espacios en blanco
-   // setNombre(value);
- // };
+  const handleNombreChange = (e) => {
+    const value = e.target.value.replace(/[0-9\s]/g, ''); // Remover números y espacios en blanco
+    setNombre(value);
+  };
 
-  //const handleApellidoChange = (e) => {
-  //  const value = e.target.value.replace(/[0-9\s]/g, ''); // Remover números y espacios en blanco
-  //  setApellido(value);
-  //};
+  const handleApellidoChange = (e) => {
+    const value = e.target.value.replace(/[0-9\s]/g, ''); // Remover números y espacios en blanco
+    setApellido(value);
+  };
 
 
   const handleDecimalChange = (producto, valor) => {
@@ -62,17 +62,12 @@ export const App = () => {
       const doc = new jsPDF();
       const fechaActual = new Date().toLocaleDateString();
 
-      doc.setLineWidth(0.5);
-      doc.line(startX, startY + 100, startX + totalWidth, startY + 100); // Línea encabezado
-      doc.line(startX + columnWidth, startY + 100, startX + columnWidth, startY + 150); // Línea vertical
-      doc.line(startX + 2 * columnWidth, startY + 100, startX + 2 * columnWidth, startY + 150); // Línea vertical
-
-      doc.addImage(logito, 'PNG', 2, 2, 20, 20);
+      doc.addImage(logito, 'PNG', 5, 5, 20, 20);
       doc.text(`Factura. Cliente: ${nombre} ${apellido}.`, startX, startY + 70);
+      doc.text('SuperTacos, tu taquería al pastor de confianza', startX, startY + 80);
       doc.text('SuperTacos, tu taquería al pastor de confianza', startX, startY + 80);
       doc.text(`Direccion: ${direccion}.`, startX, startY + 90);
       doc.text(`Fecha: ${fechaActual}.`, startX, startY + 100);
-
 
       doc.rect(startX, startY + lineHeight, totalWidth, rowHeight, 'S');
       doc.text('Producto', startX + 5, startY + lineHeight + 7);
@@ -123,12 +118,12 @@ export const App = () => {
           <h2 className='text-2xl font-bold'>Venta de Tacos</h2>
           <div className='w-full flex flex-row justify-between'>
             <div className='relative'>
-              <input type="text" className='p-2 rounded-md required:border-red-500' name={nombre}
-                 id="" pattern="[A-Za-z]+" placeholder='Primer nombre' required />
+              <input type="text" className='p-2 rounded-md required:border-red-500' name={nombre} onChange={handleNombreChange}
+                id="" pattern="[A-Za-z]+" placeholder='Primer nombre' required />
               <FaUser className='absolute top-3 right-5' />
             </div>
             <div className='relative'>
-              <input type="text" className='p-2 rounded-md required:border-red-500' name={apellido}
+              <input type="text" className='p-2 rounded-md required:border-red-500' name={apellido} onChange={handleApellidoChange}
                 id="" pattern="[A-Za-z]+" placeholder='Primer apellido' required />
               <FaUser className='absolute top-3 right-5' />
             </div>
